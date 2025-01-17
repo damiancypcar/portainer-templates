@@ -1,0 +1,6 @@
+# gitignore
+
+#os
+.DS_Store
+
+venv/
