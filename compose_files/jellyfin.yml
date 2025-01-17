@@ -1,0 +1,22 @@
+version: '3.5'
+# description: 'Media server'
+# icon-url: 'https://m.media-amazon.com/images/I/512uv+qwKuL.png'
+
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Warsaw
+      # - JELLYFIN_PublishedServerUrl=192.168.0.5 # optional, alternative address used for autodiscovery
+    ports:
+      - 8096:8096
+      # - 8920:8920 # optional, HTTPS traffic
+      # - 7359:7359/udp # optional, used for auto-discovery
+      # - 1900:1900/udp # optional, DLNA support
+    volumes:
+      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config
+      - /docker_data/${COMPOSE_PROJECT_NAME}/cache:/cache
+      - /media/AD64/media:/data/

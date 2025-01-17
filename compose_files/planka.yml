@@ -1,0 +1,62 @@
+version: '3'
+# description: 'Kanban board'
+# icon-url: 'https://docs.planka.cloud/img/planka.png'
+
+services:
+  planka:
+    image: ghcr.io/plankanban/planka:latest
+    command: >
+      bash -c
+        "for i in `seq 1 30`; do
+          ./start.sh &&
+          s=$$? && break || s=$$?;
+          echo \"Tried $$i times. Waiting 5 seconds...\";
+          sleep 5;
+        done; (exit $$s)"
+    restart: unless-stopped
+    volumes:
+      - /docker_data/${COMPOSE_PROJECT_NAME}/user-avatars:/app/public/user-avatars
+      - /docker_data/${COMPOSE_PROJECT_NAME}/project-background-images:/app/public/project-background-images
+      - /docker_data/${COMPOSE_PROJECT_NAME}/attachments:/app/private/attachments
+    ports:
+      - 23000:1337
+    environment:
+      - BASE_URL=http://rpi:23000
+      - DATABASE_URL=postgresql://postgres@postgres/planka
+      - SECRET_KEY=notsecretkey
+
+      # - TRUST_PROXY=0
+      # - TOKEN_EXPIRES_IN=365 # In days
+
+      # related: https://github.com/knex/knex/issues/2354
+      # As knex does not pass query parameters from the connection string we
+      # have to use environment variables in order to pass the desired values, e.g.
+      # - PGSSLMODE=<value>
+
+      # Configure knex to accept SSL certificates
+      # - KNEX_REJECT_UNAUTHORIZED_SSL_CERTIFICATE=false
+
+      - DEFAULT_ADMIN_EMAIL=demo@demo.demo # Do not remove if you want to prevent this user from being edited/deleted
+      - DEFAULT_ADMIN_PASSWORD=demo
+      - DEFAULT_ADMIN_NAME=Demo Demo
+      - DEFAULT_ADMIN_USERNAME=demo
+
+      # - OIDC_ISSUER=
+      # - OIDC_CLIENT_ID=
+      # - OIDC_CLIENT_SECRET=
+      # - OIDC_SCOPES=openid email profile
+      # - OIDC_ADMIN_ROLES=admin
+      # - OIDC_ROLES_ATTRIBUTE=groups
+      # - OIDC_IGNORE_ROLES=true
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    volumes:
+      - /docker_data/${COMPOSE_PROJECT_NAME}/postgresql-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=planka
+      - POSTGRES_HOST_AUTH_METHOD=trust
+

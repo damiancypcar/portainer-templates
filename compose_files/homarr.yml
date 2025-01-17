@@ -1,0 +1,16 @@
+version: '3'
+# description: Home dashboard'
+# icon-url: 'https://homarr.dev/img/logo.png'
+
+services:
+  homarr:
+    image: ghcr.io/ajnart/homarr:latest
+    # container_name: homarr
+    restart: unless-stopped
+    ports:
+      - '8575:7575'
+    volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock # optional, only for docker integration
+      - /docker_data/${COMPOSE_PROJECT_NAME}/configs:/app/data/configs
+      - /docker_data/${COMPOSE_PROJECT_NAME}/icons:/app/public/icons
+      - /docker_data/${COMPOSE_PROJECT_NAME}/data:/data

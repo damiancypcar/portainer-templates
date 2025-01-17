@@ -1,0 +1,18 @@
+version: '3'
+# description: 'A web file manager'
+# icon-url: 'https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/filebrowser.png'
+
+services:
+  filebrowser:
+    image: hurlenko/filebrowser
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Warsaw
+    ports:
+      - 8060:8080
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config
+      - /media/AD64/media:/data

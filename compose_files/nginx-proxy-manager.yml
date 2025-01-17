@@ -1,0 +1,17 @@
+version: '3.8'
+# description: 'Proxy manager'
+# icon-url: 'https://nginxproxymanager.com/icon.png'
+
+services:
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Warsaw
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - /docker_data/${COMPOSE_PROJECT_NAME}/data:/data
+      - /docker_data/${COMPOSE_PROJECT_NAME}/letsencrypt:/etc/letsencrypt

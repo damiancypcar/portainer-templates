@@ -1,0 +1,21 @@
+version: '3'
+# description: 'Downloader'
+# icon-url: 'https://lh3.googleusercontent.com/lDLemDDDZMH3KG3Phmj4kqS_lQctFfmJMvoTAVlRQHbHXEsmlfVdDUC2gxQoNZwDvxKPJf0xcwx6jh6N_FRaz95hQKo=s120'
+
+services:
+  filebrowser:
+    image: hurlenko/aria2-ariang
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - RPC_SECRET=aria2
+      - EMBED_RPC_SECRET=aria2
+      - ARIA2RPCPORT=6800
+    ports:
+      - 8050:8080
+      - 6800:6800
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker_data/${COMPOSE_PROJECT_NAME}/conf:/aria2/conf # config dir
+      - /media/AD64/media/filmy:/aria2/data # download dir

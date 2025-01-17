@@ -1,0 +1,15 @@
+version: '3'
+# description: 'Home automation'
+# icon-url: 'https://community-assets.home-assistant.io/original/4X/5/f/7/5f7c448101f9378aa877224054ce41296d7d456d.png'
+
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config
