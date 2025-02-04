@@ -1,6 +1,6 @@
 version: '3'
 # description: 'A web file manager'
-# icon-url: 'https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/filebrowser.png'
+# logo: 'https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/filebrowser.png'
 
 services:
   filebrowser:

@@ -1,6 +1,6 @@
 version: '3.4'
 # description: 'Pastebin alternative'
-# icon-url: 'https://i.imgur.com/1Zdh3HR.png'
+# logo: 'https://i.imgur.com/1Zdh3HR.png'
 
 services:
   lenpaste:

@@ -1,6 +1,6 @@
 version: '3'
 # description: Home dashboard'
-# icon-url: 'https://homarr.dev/img/logo.png'
+# logo: 'https://homarr.dev/img/logo.png'
 
 services:
   homarr:

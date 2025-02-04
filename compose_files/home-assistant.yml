@@ -1,6 +1,6 @@
 version: '3'
 # description: 'Home automation'
-# icon-url: 'https://community-assets.home-assistant.io/original/4X/5/f/7/5f7c448101f9378aa877224054ce41296d7d456d.png'
+# logo: 'https://community-assets.home-assistant.io/original/4X/5/f/7/5f7c448101f9378aa877224054ce41296d7d456d.png'
 
 services:
   homeassistant:

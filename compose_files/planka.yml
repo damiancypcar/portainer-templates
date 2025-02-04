@@ -1,6 +1,6 @@
 version: '3'
 # description: 'Kanban board'
-# icon-url: 'https://docs.planka.cloud/img/planka.png'
+# logo: 'https://docs.planka.cloud/img/planka.png'
 
 services:
   planka:

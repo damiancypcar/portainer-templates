@@ -1,6 +1,6 @@
 version: '3.8'
 # description: 'Proxy manager'
-# icon-url: 'https://nginxproxymanager.com/icon.png'
+# logo: 'https://nginxproxymanager.com/icon.png'
 
 services:
   npm:

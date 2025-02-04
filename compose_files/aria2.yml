@@ -1,6 +1,6 @@
 version: '3'
 # description: 'Downloader'
-# icon-url: 'https://lh3.googleusercontent.com/lDLemDDDZMH3KG3Phmj4kqS_lQctFfmJMvoTAVlRQHbHXEsmlfVdDUC2gxQoNZwDvxKPJf0xcwx6jh6N_FRaz95hQKo=s120'
+# logo: 'https://lh3.googleusercontent.com/lDLemDDDZMH3KG3Phmj4kqS_lQctFfmJMvoTAVlRQHbHXEsmlfVdDUC2gxQoNZwDvxKPJf0xcwx6jh6N_FRaz95hQKo=s120'
 
 services:
   aria2:
