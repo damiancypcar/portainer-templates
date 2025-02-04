@@ -3,7 +3,7 @@ version: '3.8'
 # icon-url: 'https://nginxproxymanager.com/icon.png'
 
 services:
-  app:
+  npm:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     environment:
