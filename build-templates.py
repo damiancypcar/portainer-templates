@@ -98,5 +98,5 @@ def docker_compose_to_template(docker_compose_files, template_file):
 compose_files_directory = 'compose_files'
 docker_compose_files = [os.path.join(compose_files_directory, f) for f in os.listdir(compose_files_directory) if f.endswith('.yml') or f.endswith('.yaml')]
 
-# Generate the template.json file
+# Generate the templates.json file
 docker_compose_to_template(docker_compose_files, 'templates.json')
