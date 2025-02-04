@@ -90,8 +90,8 @@ def docker_compose_to_template(docker_compose_files, template_file):
             # Add the processed template service to the main template
             template['templates'].append(template_service)
 
-    # Write the final template to a JSON file
-    with open(template_file, 'w', encoding='utf-8') as file:
+    # Write the final template to a JSON file with Unix-style line endings
+    with open(template_file, 'w', encoding='utf-8', newline='') as file:
         json.dump(template, file, indent=4)
 
 # Get all docker-compose files from the compose_files directory
