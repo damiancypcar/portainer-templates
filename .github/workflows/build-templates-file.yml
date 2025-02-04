@@ -1,0 +1,40 @@
+name: Build templates.json
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          # Semantic version range syntax or exact version of a Python version
+          python-version: '3.x'
+          architecture: 'x64'
+
+      - name: BUILD
+        run: bash build.sh
+
+      - name: Commit and push if changes - templates.json
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --exit-code templates.json > /dev/null; then
+            echo "No changes in templates.json, skipping commit."
+          else
+            git add templates.json
+            git commit -m "Update templates.json: $(date +'%Y-%m-%d %H:%M:%S')"
+            git push
+          fi
