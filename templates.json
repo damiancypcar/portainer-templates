@@ -67,122 +67,6 @@
             ]
         },
         {
-            "title": "filebrowser",
-            "description": "A web file manager",
-            "note": "Generated from filebrowser.yml",
-            "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/filebrowser.png",
-            "categories": [
-                "Custom"
-            ],
-            "platform": "linux",
-            "type": 1,
-            "repository": {
-                "stackfile": "version: '3'\n\nservices:\n  filebrowser:\n    image: hurlenko/filebrowser\n    restart: unless-stopped\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Warsaw\n    ports:\n      - 8060:8080\n    volumes:\n      - /etc/localtime:/etc/localtime:ro\n      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config\n      - /media/AD64/media:/data\n"
-            },
-            "network": {
-                "name": "bridge",
-                "driver": "bridge"
-            },
-            "env": [
-                {
-                    "name": "PUID",
-                    "label": "PUID",
-                    "default": "1000"
-                },
-                {
-                    "name": "PGID",
-                    "label": "PGID",
-                    "default": "1000"
-                },
-                {
-                    "name": "TZ",
-                    "label": "TZ",
-                    "default": "Europe/Warsaw"
-                }
-            ],
-            "volumes": [
-                {
-                    "container": "/config",
-                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/config"
-                },
-                {
-                    "container": "/data",
-                    "bind": "/media/AD64/media"
-                }
-            ],
-            "ports": [
-                {
-                    "containerPort": "8080",
-                    "hostPort": "8060"
-                }
-            ]
-        },
-        {
-            "title": "homarr",
-            "description": "Home dashboard",
-            "note": "Generated from homarr.yml",
-            "logo": "https://homarr.dev/img/logo.png",
-            "categories": [
-                "Custom"
-            ],
-            "platform": "linux",
-            "type": 1,
-            "repository": {
-                "stackfile": "version: '3'\n\nservices:\n  homarr:\n    image: ghcr.io/ajnart/homarr:latest\n    # container_name: homarr\n    restart: unless-stopped\n    ports:\n      - '8575:7575'\n    volumes:\n      # - /var/run/docker.sock:/var/run/docker.sock # optional, only for docker integration\n      - /docker_data/${COMPOSE_PROJECT_NAME}/configs:/app/data/configs\n      - /docker_data/${COMPOSE_PROJECT_NAME}/icons:/app/public/icons\n      - /docker_data/${COMPOSE_PROJECT_NAME}/data:/data\n"
-            },
-            "network": {
-                "name": "bridge",
-                "driver": "bridge"
-            },
-            "env": [],
-            "volumes": [
-                {
-                    "container": "/app/data/configs",
-                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/configs"
-                },
-                {
-                    "container": "/app/public/icons",
-                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/icons"
-                },
-                {
-                    "container": "/data",
-                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/data"
-                }
-            ],
-            "ports": [
-                {
-                    "containerPort": "7575",
-                    "hostPort": "8575"
-                }
-            ]
-        },
-        {
-            "title": "homeassistant",
-            "description": "Home automation",
-            "note": "Generated from home-assistant.yml",
-            "logo": "https://community-assets.home-assistant.io/original/4X/5/f/7/5f7c448101f9378aa877224054ce41296d7d456d.png",
-            "categories": [
-                "Custom"
-            ],
-            "platform": "linux",
-            "type": 1,
-            "repository": {
-                "stackfile": "version: '3'\n\nservices:\n  homeassistant:\n    container_name: homeassistant\n    image: \"ghcr.io/home-assistant/home-assistant:stable\"\n    restart: unless-stopped\n    privileged: true\n    network_mode: host\n    volumes:\n      - /etc/localtime:/etc/localtime:ro\n      - /run/dbus:/run/dbus:ro\n      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config\n"
-            },
-            "network": {
-                "name": "bridge",
-                "driver": "bridge"
-            },
-            "env": [],
-            "volumes": [
-                {
-                    "container": "/config",
-                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/config"
-                }
-            ],
-            "ports": []
-        },
-        {
             "title": "jellyfin",
             "description": "Media server",
             "note": "Generated from jellyfin.yml",
@@ -238,37 +122,6 @@
             ]
         },
         {
-            "title": "lenpaste",
-            "description": "Pastebin alternative",
-            "note": "Generated from lenpaste.yml",
-            "logo": "https://i.imgur.com/1Zdh3HR.png",
-            "categories": [
-                "Custom"
-            ],
-            "platform": "linux",
-            "type": 1,
-            "repository": {
-                "stackfile": "version: '3.4'\n\nservices:\n  lenpaste:\n    image: ghcr.io/lcomrade/lenpaste:1.3.1\n    ports:\n      - '21080:80'\n    volumes:\n      - '/docker_data/${COMPOSE_PROJECT_NAME}/data:/data'\n      - '/etc/timezone:/etc/timezone:ro'\n      - '/etc/localtime:/etc/localtime:ro'\n"
-            },
-            "network": {
-                "name": "bridge",
-                "driver": "bridge"
-            },
-            "env": [],
-            "volumes": [
-                {
-                    "container": "/data",
-                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/data"
-                }
-            ],
-            "ports": [
-                {
-                    "containerPort": "80",
-                    "hostPort": "21080"
-                }
-            ]
-        },
-        {
             "title": "npm",
             "description": "Proxy manager",
             "note": "Generated from nginx-proxy-manager.yml",
@@ -314,6 +167,122 @@
                 {
                     "containerPort": "443",
                     "hostPort": "443"
+                }
+            ]
+        },
+        {
+            "title": "homeassistant",
+            "description": "Home automation",
+            "note": "Generated from home-assistant.yml",
+            "logo": "https://community-assets.home-assistant.io/original/4X/5/f/7/5f7c448101f9378aa877224054ce41296d7d456d.png",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3'\n\nservices:\n  homeassistant:\n    container_name: homeassistant\n    image: \"ghcr.io/home-assistant/home-assistant:stable\"\n    restart: unless-stopped\n    privileged: true\n    network_mode: host\n    volumes:\n      - /etc/localtime:/etc/localtime:ro\n      - /run/dbus:/run/dbus:ro\n      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [],
+            "volumes": [
+                {
+                    "container": "/config",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/config"
+                }
+            ],
+            "ports": []
+        },
+        {
+            "title": "homarr",
+            "description": "Home dashboard",
+            "note": "Generated from homarr.yml",
+            "logo": "https://homarr.dev/img/logo.png",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3'\n\nservices:\n  homarr:\n    image: ghcr.io/ajnart/homarr:latest\n    # container_name: homarr\n    restart: unless-stopped\n    ports:\n      - '8575:7575'\n    volumes:\n      # - /var/run/docker.sock:/var/run/docker.sock # optional, only for docker integration\n      - /docker_data/${COMPOSE_PROJECT_NAME}/configs:/app/data/configs\n      - /docker_data/${COMPOSE_PROJECT_NAME}/icons:/app/public/icons\n      - /docker_data/${COMPOSE_PROJECT_NAME}/data:/data\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [],
+            "volumes": [
+                {
+                    "container": "/app/data/configs",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/configs"
+                },
+                {
+                    "container": "/app/public/icons",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/icons"
+                },
+                {
+                    "container": "/data",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/data"
+                }
+            ],
+            "ports": [
+                {
+                    "containerPort": "7575",
+                    "hostPort": "8575"
+                }
+            ]
+        },
+        {
+            "title": "filebrowser",
+            "description": "A web file manager",
+            "note": "Generated from filebrowser.yml",
+            "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/filebrowser.png",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3'\n\nservices:\n  filebrowser:\n    image: hurlenko/filebrowser\n    restart: unless-stopped\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Warsaw\n    ports:\n      - 8060:8080\n    volumes:\n      - /etc/localtime:/etc/localtime:ro\n      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config\n      - /media/AD64/media:/data\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [
+                {
+                    "name": "PUID",
+                    "label": "PUID",
+                    "default": "1000"
+                },
+                {
+                    "name": "PGID",
+                    "label": "PGID",
+                    "default": "1000"
+                },
+                {
+                    "name": "TZ",
+                    "label": "TZ",
+                    "default": "Europe/Warsaw"
+                }
+            ],
+            "volumes": [
+                {
+                    "container": "/config",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/config"
+                },
+                {
+                    "container": "/data",
+                    "bind": "/media/AD64/media"
+                }
+            ],
+            "ports": [
+                {
+                    "containerPort": "8080",
+                    "hostPort": "8060"
                 }
             ]
         },
@@ -428,6 +397,37 @@
                 }
             ],
             "ports": []
+        },
+        {
+            "title": "lenpaste",
+            "description": "Pastebin alternative",
+            "note": "Generated from lenpaste.yml",
+            "logo": "https://i.imgur.com/1Zdh3HR.png",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3.4'\n\nservices:\n  lenpaste:\n    image: ghcr.io/lcomrade/lenpaste:1.3.1\n    ports:\n      - '21080:80'\n    volumes:\n      - '/docker_data/${COMPOSE_PROJECT_NAME}/data:/data'\n      - '/etc/timezone:/etc/timezone:ro'\n      - '/etc/localtime:/etc/localtime:ro'\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [],
+            "volumes": [
+                {
+                    "container": "/data",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/data"
+                }
+            ],
+            "ports": [
+                {
+                    "containerPort": "80",
+                    "hostPort": "21080"
+                }
+            ]
         }
     ]
 }
