@@ -3,7 +3,7 @@ version: '3'
 # icon-url: 'https://lh3.googleusercontent.com/lDLemDDDZMH3KG3Phmj4kqS_lQctFfmJMvoTAVlRQHbHXEsmlfVdDUC2gxQoNZwDvxKPJf0xcwx6jh6N_FRaz95hQKo=s120'
 
 services:
-  filebrowser:
+  aria2:
     image: hurlenko/aria2-ariang
     restart: unless-stopped
     environment:
