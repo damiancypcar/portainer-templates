@@ -1,0 +1,25 @@
+name: Build templates.json
+
+on:
+  push:
+    branches:
+      - add-automation
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          # Semantic version range syntax or exact version of a Python version
+          python-version: '3.x'
+          architecture: 'x64'
+
+      - name: Run build script
+        run: bash build.sh
