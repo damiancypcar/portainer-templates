@@ -23,7 +23,7 @@ echo -e "\u2023 Activate venv"
 activate-venv
 
 echo -e "\u2023 Install dependencies"
-# python -m pip -V
+python -m pip -V
 # python -m pip freeze > requirements.txt
 python -m pip install -r requirements.txt
 
