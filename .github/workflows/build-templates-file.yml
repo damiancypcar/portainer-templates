@@ -6,6 +6,9 @@ on:
       - add-automation
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
 
