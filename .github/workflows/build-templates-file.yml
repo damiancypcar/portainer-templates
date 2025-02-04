@@ -23,3 +23,15 @@ jobs:
 
       - name: BUILD
         run: bash build.sh
+
+      - name: Commit and push if changes - templates.json
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --exit-code templates.json > /dev/null; then
+            echo "No changes in templates.json, skipping commit."
+          else
+            git add templates.json
+            git commit -m "Update templates.json - $(date +'%Y-%m-%d')"
+            git push
+          fi
