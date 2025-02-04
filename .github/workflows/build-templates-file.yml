@@ -3,7 +3,7 @@ name: Build templates.json
 on:
   push:
     branches:
-      - add-automation
+      - main
   workflow_dispatch:
 
 permissions:
