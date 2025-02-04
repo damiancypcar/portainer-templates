@@ -35,6 +35,6 @@ jobs:
             echo "No changes in templates.json, skipping commit."
           else
             git add templates.json
-            git commit -m "Update templates.json - $(date +'%Y-%m-%d')"
+            git commit -m "Update templates.json: $(date +'%Y-%m-%d %H:%M:%S')"
             git push
           fi
