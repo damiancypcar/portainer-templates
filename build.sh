@@ -8,8 +8,14 @@ fi
 
 if [ -d "venv" ]; then
     echo "  - activating \"venv\""
-    source ./venv/Scripts/activate
 
+    if [ -n "$WINDIR" ]; then
+        # Windows
+        .\venv\Scripts\activate
+    else
+        # Unix/Linux/macOS
+        source venv/bin/activate
+    fi
 fi
 }
 
