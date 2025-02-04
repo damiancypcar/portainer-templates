@@ -23,9 +23,7 @@ echo -e "\u2023 Install dependencies"
 python -m pip install -r requirements.txt
 
 echo -e "\u2023 Run python script"
-python build-templates2.py
-
-
+python build-templates.py
 
 
 echo "koniec"

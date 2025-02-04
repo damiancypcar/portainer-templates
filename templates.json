@@ -1,0 +1,433 @@
+{
+    "version": "2",
+    "templates": [
+        {
+            "title": "aria2",
+            "description": "Downloader",
+            "note": "Generated from aria2.yml",
+            "logo": "https://lh3.googleusercontent.com/lDLemDDDZMH3KG3Phmj4kqS_lQctFfmJMvoTAVlRQHbHXEsmlfVdDUC2gxQoNZwDvxKPJf0xcwx6jh6N_FRaz95hQKo=s120",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3'\n\nservices:\n  aria2:\n    image: hurlenko/aria2-ariang\n    restart: unless-stopped\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - RPC_SECRET=aria2\n      - EMBED_RPC_SECRET=aria2\n      - ARIA2RPCPORT=6800\n    ports:\n      - 8050:8080\n      - 6800:6800\n    volumes:\n      - /etc/localtime:/etc/localtime:ro\n      - /docker_data/${COMPOSE_PROJECT_NAME}/conf:/aria2/conf # config dir\n      - /media/AD64/media/filmy:/aria2/data # download dir\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [
+                {
+                    "name": "PUID",
+                    "label": "PUID",
+                    "default": "1000"
+                },
+                {
+                    "name": "PGID",
+                    "label": "PGID",
+                    "default": "1000"
+                },
+                {
+                    "name": "RPC_SECRET",
+                    "label": "RPC_SECRET",
+                    "default": "aria2"
+                },
+                {
+                    "name": "EMBED_RPC_SECRET",
+                    "label": "EMBED_RPC_SECRET",
+                    "default": "aria2"
+                },
+                {
+                    "name": "ARIA2RPCPORT",
+                    "label": "ARIA2RPCPORT",
+                    "default": "6800"
+                }
+            ],
+            "volumes": [
+                {
+                    "container": "/aria2/conf",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/conf"
+                },
+                {
+                    "container": "/aria2/data",
+                    "bind": "/media/AD64/media/filmy"
+                }
+            ],
+            "ports": [
+                {
+                    "containerPort": "8080",
+                    "hostPort": "8050"
+                },
+                {
+                    "containerPort": "6800",
+                    "hostPort": "6800"
+                }
+            ]
+        },
+        {
+            "title": "filebrowser",
+            "description": "A web file manager",
+            "note": "Generated from filebrowser.yml",
+            "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/filebrowser.png",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3'\n\nservices:\n  filebrowser:\n    image: hurlenko/filebrowser\n    restart: unless-stopped\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Warsaw\n    ports:\n      - 8060:8080\n    volumes:\n      - /etc/localtime:/etc/localtime:ro\n      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config\n      - /media/AD64/media:/data\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [
+                {
+                    "name": "PUID",
+                    "label": "PUID",
+                    "default": "1000"
+                },
+                {
+                    "name": "PGID",
+                    "label": "PGID",
+                    "default": "1000"
+                },
+                {
+                    "name": "TZ",
+                    "label": "TZ",
+                    "default": "Europe/Warsaw"
+                }
+            ],
+            "volumes": [
+                {
+                    "container": "/config",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/config"
+                },
+                {
+                    "container": "/data",
+                    "bind": "/media/AD64/media"
+                }
+            ],
+            "ports": [
+                {
+                    "containerPort": "8080",
+                    "hostPort": "8060"
+                }
+            ]
+        },
+        {
+            "title": "homarr",
+            "description": "Home dashboard",
+            "note": "Generated from homarr.yml",
+            "logo": "",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3'\n# icon-url: 'https://homarr.dev/img/logo.png'\n\nservices:\n  homarr:\n    image: ghcr.io/ajnart/homarr:latest\n    # container_name: homarr\n    restart: unless-stopped\n    ports:\n      - '8575:7575'\n    volumes:\n      # - /var/run/docker.sock:/var/run/docker.sock # optional, only for docker integration\n      - /docker_data/${COMPOSE_PROJECT_NAME}/configs:/app/data/configs\n      - /docker_data/${COMPOSE_PROJECT_NAME}/icons:/app/public/icons\n      - /docker_data/${COMPOSE_PROJECT_NAME}/data:/data\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [],
+            "volumes": [
+                {
+                    "container": "/app/data/configs",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/configs"
+                },
+                {
+                    "container": "/app/public/icons",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/icons"
+                },
+                {
+                    "container": "/data",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/data"
+                }
+            ],
+            "ports": [
+                {
+                    "containerPort": "7575",
+                    "hostPort": "8575"
+                }
+            ]
+        },
+        {
+            "title": "homeassistant",
+            "description": "Home automation",
+            "note": "Generated from home-assistant.yml",
+            "logo": "",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3'\n# icon-url: 'https://community-assets.home-assistant.io/original/4X/5/f/7/5f7c448101f9378aa877224054ce41296d7d456d.png'\n\nservices:\n  homeassistant:\n    container_name: homeassistant\n    image: \"ghcr.io/home-assistant/home-assistant:stable\"\n    restart: unless-stopped\n    privileged: true\n    network_mode: host\n    volumes:\n      - /etc/localtime:/etc/localtime:ro\n      - /run/dbus:/run/dbus:ro\n      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [],
+            "volumes": [
+                {
+                    "container": "/config",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/config"
+                }
+            ],
+            "ports": []
+        },
+        {
+            "title": "jellyfin",
+            "description": "Media server",
+            "note": "Generated from jellyfin.yml",
+            "logo": "",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3.5'\n# icon-url: 'https://m.media-amazon.com/images/I/512uv+qwKuL.png'\n\nservices:\n  jellyfin:\n    image: lscr.io/linuxserver/jellyfin:latest\n    restart: unless-stopped\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Warsaw\n      # - JELLYFIN_PublishedServerUrl=192.168.0.5 # optional, alternative address used for autodiscovery\n    ports:\n      - 8096:8096\n      # - 8920:8920 # optional, HTTPS traffic\n      # - 7359:7359/udp # optional, used for auto-discovery\n      # - 1900:1900/udp # optional, DLNA support\n    volumes:\n      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config\n      - /docker_data/${COMPOSE_PROJECT_NAME}/cache:/cache\n      - /media/AD64/media:/data/\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [
+                {
+                    "name": "PUID",
+                    "label": "PUID",
+                    "default": "1000"
+                },
+                {
+                    "name": "PGID",
+                    "label": "PGID",
+                    "default": "1000"
+                },
+                {
+                    "name": "TZ",
+                    "label": "TZ",
+                    "default": "Europe/Warsaw"
+                }
+            ],
+            "volumes": [
+                {
+                    "container": "/config",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/config"
+                },
+                {
+                    "container": "/cache",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/cache"
+                },
+                {
+                    "container": "/data/",
+                    "bind": "/media/AD64/media"
+                }
+            ],
+            "ports": [
+                {
+                    "containerPort": "8096",
+                    "hostPort": "8096"
+                }
+            ]
+        },
+        {
+            "title": "lenpaste",
+            "description": "Pastebin alternative",
+            "note": "Generated from lenpaste.yml",
+            "logo": "",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3.4'\n# icon-url: 'https://i.imgur.com/1Zdh3HR.png'\n\nservices:\n  lenpaste:\n    image: ghcr.io/lcomrade/lenpaste:1.3.1\n    ports:\n      - '21080:80'\n    volumes:\n      - '/docker_data/${COMPOSE_PROJECT_NAME}/data:/data'\n      - '/etc/timezone:/etc/timezone:ro'\n      - '/etc/localtime:/etc/localtime:ro'\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [],
+            "volumes": [
+                {
+                    "container": "/data",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/data"
+                }
+            ],
+            "ports": [
+                {
+                    "containerPort": "80",
+                    "hostPort": "21080"
+                }
+            ]
+        },
+        {
+            "title": "npm",
+            "description": "Proxy manager",
+            "note": "Generated from nginx-proxy-manager.yml",
+            "logo": "",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3.8'\n# icon-url: 'https://nginxproxymanager.com/icon.png'\n\nservices:\n  npm:\n    image: 'jc21/nginx-proxy-manager:latest'\n    restart: unless-stopped\n    environment:\n      - TZ=Europe/Warsaw\n    ports:\n      - '80:80'\n      - '81:81'\n      - '443:443'\n    volumes:\n      - /docker_data/${COMPOSE_PROJECT_NAME}/data:/data\n      - /docker_data/${COMPOSE_PROJECT_NAME}/letsencrypt:/etc/letsencrypt\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [
+                {
+                    "name": "TZ",
+                    "label": "TZ",
+                    "default": "Europe/Warsaw"
+                }
+            ],
+            "volumes": [
+                {
+                    "container": "/data",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/data"
+                },
+                {
+                    "container": "/etc/letsencrypt",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/letsencrypt"
+                }
+            ],
+            "ports": [
+                {
+                    "containerPort": "80",
+                    "hostPort": "80"
+                },
+                {
+                    "containerPort": "81",
+                    "hostPort": "81"
+                },
+                {
+                    "containerPort": "443",
+                    "hostPort": "443"
+                }
+            ]
+        },
+        {
+            "title": "planka",
+            "description": "Kanban board",
+            "note": "Generated from planka.yml",
+            "logo": "",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3'\n# icon-url: 'https://docs.planka.cloud/img/planka.png'\n\nservices:\n  planka:\n    image: ghcr.io/plankanban/planka:latest\n    command: >\n      bash -c\n        \"for i in `seq 1 30`; do\n          ./start.sh &&\n          s=$$? && break || s=$$?;\n          echo \\\"Tried $$i times. Waiting 5 seconds...\\\";\n          sleep 5;\n        done; (exit $$s)\"\n    restart: unless-stopped\n    volumes:\n      - /docker_data/${COMPOSE_PROJECT_NAME}/user-avatars:/app/public/user-avatars\n      - /docker_data/${COMPOSE_PROJECT_NAME}/project-background-images:/app/public/project-background-images\n      - /docker_data/${COMPOSE_PROJECT_NAME}/attachments:/app/private/attachments\n    ports:\n      - 23000:1337\n    environment:\n      - BASE_URL=http://rpi:23000\n      - DATABASE_URL=postgresql://postgres@postgres/planka\n      - SECRET_KEY=notsecretkey\n\n      # - TRUST_PROXY=0\n      # - TOKEN_EXPIRES_IN=365 # In days\n\n      # related: https://github.com/knex/knex/issues/2354\n      # As knex does not pass query parameters from the connection string we\n      # have to use environment variables in order to pass the desired values, e.g.\n      # - PGSSLMODE=<value>\n\n      # Configure knex to accept SSL certificates\n      # - KNEX_REJECT_UNAUTHORIZED_SSL_CERTIFICATE=false\n\n      - DEFAULT_ADMIN_EMAIL=demo@demo.demo # Do not remove if you want to prevent this user from being edited/deleted\n      - DEFAULT_ADMIN_PASSWORD=demo\n      - DEFAULT_ADMIN_NAME=Demo Demo\n      - DEFAULT_ADMIN_USERNAME=demo\n\n      # - OIDC_ISSUER=\n      # - OIDC_CLIENT_ID=\n      # - OIDC_CLIENT_SECRET=\n      # - OIDC_SCOPES=openid email profile\n      # - OIDC_ADMIN_ROLES=admin\n      # - OIDC_ROLES_ATTRIBUTE=groups\n      # - OIDC_IGNORE_ROLES=true\n    depends_on:\n      - postgres\n\n  postgres:\n    image: postgres:14-alpine\n    restart: unless-stopped\n    volumes:\n      - /docker_data/${COMPOSE_PROJECT_NAME}/postgresql-data:/var/lib/postgresql/data\n    environment:\n      - POSTGRES_DB=planka\n      - POSTGRES_HOST_AUTH_METHOD=trust\n\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [
+                {
+                    "name": "BASE_URL",
+                    "label": "BASE_URL",
+                    "default": "http://rpi:23000"
+                },
+                {
+                    "name": "DATABASE_URL",
+                    "label": "DATABASE_URL",
+                    "default": "postgresql://postgres@postgres/planka"
+                },
+                {
+                    "name": "SECRET_KEY",
+                    "label": "SECRET_KEY",
+                    "default": "notsecretkey"
+                },
+                {
+                    "name": "DEFAULT_ADMIN_EMAIL",
+                    "label": "DEFAULT_ADMIN_EMAIL",
+                    "default": "demo@demo.demo"
+                },
+                {
+                    "name": "DEFAULT_ADMIN_PASSWORD",
+                    "label": "DEFAULT_ADMIN_PASSWORD",
+                    "default": "demo"
+                },
+                {
+                    "name": "DEFAULT_ADMIN_NAME",
+                    "label": "DEFAULT_ADMIN_NAME",
+                    "default": "Demo Demo"
+                },
+                {
+                    "name": "DEFAULT_ADMIN_USERNAME",
+                    "label": "DEFAULT_ADMIN_USERNAME",
+                    "default": "demo"
+                }
+            ],
+            "volumes": [
+                {
+                    "container": "/app/public/user-avatars",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/user-avatars"
+                },
+                {
+                    "container": "/app/public/project-background-images",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/project-background-images"
+                },
+                {
+                    "container": "/app/private/attachments",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/attachments"
+                }
+            ],
+            "ports": [
+                {
+                    "containerPort": "1337",
+                    "hostPort": "23000"
+                }
+            ]
+        },
+        {
+            "title": "postgres",
+            "description": "Kanban board",
+            "note": "Generated from planka.yml",
+            "logo": "",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3'\n# icon-url: 'https://docs.planka.cloud/img/planka.png'\n\nservices:\n  planka:\n    image: ghcr.io/plankanban/planka:latest\n    command: >\n      bash -c\n        \"for i in `seq 1 30`; do\n          ./start.sh &&\n          s=$$? && break || s=$$?;\n          echo \\\"Tried $$i times. Waiting 5 seconds...\\\";\n          sleep 5;\n        done; (exit $$s)\"\n    restart: unless-stopped\n    volumes:\n      - /docker_data/${COMPOSE_PROJECT_NAME}/user-avatars:/app/public/user-avatars\n      - /docker_data/${COMPOSE_PROJECT_NAME}/project-background-images:/app/public/project-background-images\n      - /docker_data/${COMPOSE_PROJECT_NAME}/attachments:/app/private/attachments\n    ports:\n      - 23000:1337\n    environment:\n      - BASE_URL=http://rpi:23000\n      - DATABASE_URL=postgresql://postgres@postgres/planka\n      - SECRET_KEY=notsecretkey\n\n      # - TRUST_PROXY=0\n      # - TOKEN_EXPIRES_IN=365 # In days\n\n      # related: https://github.com/knex/knex/issues/2354\n      # As knex does not pass query parameters from the connection string we\n      # have to use environment variables in order to pass the desired values, e.g.\n      # - PGSSLMODE=<value>\n\n      # Configure knex to accept SSL certificates\n      # - KNEX_REJECT_UNAUTHORIZED_SSL_CERTIFICATE=false\n\n      - DEFAULT_ADMIN_EMAIL=demo@demo.demo # Do not remove if you want to prevent this user from being edited/deleted\n      - DEFAULT_ADMIN_PASSWORD=demo\n      - DEFAULT_ADMIN_NAME=Demo Demo\n      - DEFAULT_ADMIN_USERNAME=demo\n\n      # - OIDC_ISSUER=\n      # - OIDC_CLIENT_ID=\n      # - OIDC_CLIENT_SECRET=\n      # - OIDC_SCOPES=openid email profile\n      # - OIDC_ADMIN_ROLES=admin\n      # - OIDC_ROLES_ATTRIBUTE=groups\n      # - OIDC_IGNORE_ROLES=true\n    depends_on:\n      - postgres\n\n  postgres:\n    image: postgres:14-alpine\n    restart: unless-stopped\n    volumes:\n      - /docker_data/${COMPOSE_PROJECT_NAME}/postgresql-data:/var/lib/postgresql/data\n    environment:\n      - POSTGRES_DB=planka\n      - POSTGRES_HOST_AUTH_METHOD=trust\n\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [
+                {
+                    "name": "POSTGRES_DB",
+                    "label": "POSTGRES_DB",
+                    "default": "planka"
+                },
+                {
+                    "name": "POSTGRES_HOST_AUTH_METHOD",
+                    "label": "POSTGRES_HOST_AUTH_METHOD",
+                    "default": "trust"
+                }
+            ],
+            "volumes": [
+                {
+                    "container": "/var/lib/postgresql/data",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/postgresql-data"
+                }
+            ],
+            "ports": []
+        }
+    ]
+}
