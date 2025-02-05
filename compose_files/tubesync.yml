@@ -1,0 +1,19 @@
+version: '3'
+# description: 'Syncs YouTube channels and playlists to local storage'
+# logo: 'https://github.com/meeb/tubesync/blob/main/tubesync/common/static/images/tubesync.png?raw=true'
+
+services:
+  tubesync:
+    image: ghcr.io/meeb/tubesync:latest
+    container_name: tubesync
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Warsaw
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - 4848:4848
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config
+      - /media/KING128W/media/youtube:/downloads # download dir
