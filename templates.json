@@ -399,6 +399,57 @@
             "ports": []
         },
         {
+            "title": "tubesync",
+            "description": "Syncs YouTube channels and playlists to local storage",
+            "note": "Generated from tubesync.yml",
+            "logo": "https://github.com/meeb/tubesync/blob/main/tubesync/common/static/images/tubesync.png?raw=true",
+            "categories": [
+                "Custom"
+            ],
+            "platform": "linux",
+            "type": 1,
+            "repository": {
+                "stackfile": "version: '3'\n\nservices:\n  tubesync:\n    image: ghcr.io/meeb/tubesync:latest\n    container_name: tubesync\n    restart: unless-stopped\n    environment:\n      - TZ=Europe/Warsaw\n      - PUID=1000\n      - PGID=1000\n    ports:\n      - 4848:4848\n    volumes:\n      - /etc/localtime:/etc/localtime:ro\n      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config\n      - /media/KING128W/media/youtube:/downloads # download dir\n"
+            },
+            "network": {
+                "name": "bridge",
+                "driver": "bridge"
+            },
+            "env": [
+                {
+                    "name": "TZ",
+                    "label": "TZ",
+                    "default": "Europe/Warsaw"
+                },
+                {
+                    "name": "PUID",
+                    "label": "PUID",
+                    "default": "1000"
+                },
+                {
+                    "name": "PGID",
+                    "label": "PGID",
+                    "default": "1000"
+                }
+            ],
+            "volumes": [
+                {
+                    "container": "/config",
+                    "bind": "/docker_data/${COMPOSE_PROJECT_NAME}/config"
+                },
+                {
+                    "container": "/downloads",
+                    "bind": "/media/KING128W/media/youtube"
+                }
+            ],
+            "ports": [
+                {
+                    "containerPort": "4848",
+                    "hostPort": "4848"
+                }
+            ]
+        },
+        {
             "title": "lenpaste",
             "description": "Pastebin alternative",
             "note": "Generated from lenpaste.yml",
