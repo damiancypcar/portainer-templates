@@ -10,8 +10,11 @@
                 "Custom"
             ],
             "platform": "linux",
-            "type": 2,
-            "stackfile": "version: '3'\n\nservices:\n  aria2:\n    image: hurlenko/aria2-ariang\n    restart: unless-stopped\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - RPC_SECRET=aria2\n      - EMBED_RPC_SECRET=aria2\n      - ARIA2RPCPORT=6800\n    ports:\n      - 8050:8080\n      - 6800:6800\n    volumes:\n      - /etc/localtime:/etc/localtime:ro\n      - /docker_data/${COMPOSE_PROJECT_NAME}/conf:/aria2/conf # config dir\n      - /media/AD64/media/filmy:/aria2/data # download dir\n"
+            "type": 3,
+            "repository": {
+                "url": "https://github.com/damiancypcar/portainer-templates",
+                "stackfile": "compose_files/aria2.yml"
+            }
         },
         {
             "title": "jellyfin",
@@ -22,8 +25,11 @@
                 "Custom"
             ],
             "platform": "linux",
-            "type": 2,
-            "stackfile": "version: '3.5'\n\nservices:\n  jellyfin:\n    image: lscr.io/linuxserver/jellyfin:latest\n    restart: unless-stopped\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Warsaw\n      # - JELLYFIN_PublishedServerUrl=192.168.0.5 # optional, alternative address used for autodiscovery\n    ports:\n      - 8096:8096\n      # - 8920:8920 # optional, HTTPS traffic\n      # - 7359:7359/udp # optional, used for auto-discovery\n      # - 1900:1900/udp # optional, DLNA support\n    volumes:\n      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config\n      - /docker_data/${COMPOSE_PROJECT_NAME}/cache:/cache\n      - /media/AD64/media:/data/\n"
+            "type": 3,
+            "repository": {
+                "url": "https://github.com/damiancypcar/portainer-templates",
+                "stackfile": "compose_files/jellyfin.yml"
+            }
         },
         {
             "title": "npm",
@@ -34,8 +40,11 @@
                 "Custom"
             ],
             "platform": "linux",
-            "type": 2,
-            "stackfile": "version: '3.8'\n\nservices:\n  npm:\n    image: 'jc21/nginx-proxy-manager:latest'\n    restart: unless-stopped\n    environment:\n      - TZ=Europe/Warsaw\n    ports:\n      - '80:80'\n      - '81:81'\n      - '443:443'\n    volumes:\n      - /docker_data/${COMPOSE_PROJECT_NAME}/data:/data\n      - /docker_data/${COMPOSE_PROJECT_NAME}/letsencrypt:/etc/letsencrypt\n"
+            "type": 3,
+            "repository": {
+                "url": "https://github.com/damiancypcar/portainer-templates",
+                "stackfile": "compose_files/nginx-proxy-manager.yml"
+            }
         },
         {
             "title": "homeassistant",
@@ -46,8 +55,11 @@
                 "Custom"
             ],
             "platform": "linux",
-            "type": 2,
-            "stackfile": "version: '3'\n\nservices:\n  homeassistant:\n    container_name: homeassistant\n    image: \"ghcr.io/home-assistant/home-assistant:stable\"\n    restart: unless-stopped\n    privileged: true\n    network_mode: host\n    volumes:\n      - /etc/localtime:/etc/localtime:ro\n      - /run/dbus:/run/dbus:ro\n      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config\n"
+            "type": 3,
+            "repository": {
+                "url": "https://github.com/damiancypcar/portainer-templates",
+                "stackfile": "compose_files/home-assistant.yml"
+            }
         },
         {
             "title": "homarr",
@@ -58,8 +70,11 @@
                 "Custom"
             ],
             "platform": "linux",
-            "type": 2,
-            "stackfile": "version: '3'\n\nservices:\n  homarr:\n    image: ghcr.io/ajnart/homarr:latest\n    # container_name: homarr\n    restart: unless-stopped\n    ports:\n      - '8575:7575'\n    volumes:\n      # - /var/run/docker.sock:/var/run/docker.sock # optional, only for docker integration\n      - /docker_data/${COMPOSE_PROJECT_NAME}/configs:/app/data/configs\n      - /docker_data/${COMPOSE_PROJECT_NAME}/icons:/app/public/icons\n      - /docker_data/${COMPOSE_PROJECT_NAME}/data:/data\n"
+            "type": 3,
+            "repository": {
+                "url": "https://github.com/damiancypcar/portainer-templates",
+                "stackfile": "compose_files/homarr.yml"
+            }
         },
         {
             "title": "filebrowser",
@@ -70,8 +85,11 @@
                 "Custom"
             ],
             "platform": "linux",
-            "type": 2,
-            "stackfile": "version: '3'\n\nservices:\n  filebrowser:\n    image: hurlenko/filebrowser\n    restart: unless-stopped\n    environment:\n      - PUID=1000\n      - PGID=1000\n      - TZ=Europe/Warsaw\n    ports:\n      - 8060:8080\n    volumes:\n      - /etc/localtime:/etc/localtime:ro\n      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config\n      - /media/AD64/media:/data\n"
+            "type": 3,
+            "repository": {
+                "url": "https://github.com/damiancypcar/portainer-templates",
+                "stackfile": "compose_files/filebrowser.yml"
+            }
         },
         {
             "title": "planka",
@@ -82,8 +100,11 @@
                 "Custom"
             ],
             "platform": "linux",
-            "type": 2,
-            "stackfile": "version: '3'\n\nservices:\n  planka:\n    image: ghcr.io/plankanban/planka:latest\n    command: >\n      bash -c\n        \"for i in `seq 1 30`; do\n          ./start.sh &&\n          s=$$? && break || s=$$?;\n          echo \\\"Tried $$i times. Waiting 5 seconds...\\\";\n          sleep 5;\n        done; (exit $$s)\"\n    restart: unless-stopped\n    volumes:\n      - /docker_data/${COMPOSE_PROJECT_NAME}/user-avatars:/app/public/user-avatars\n      - /docker_data/${COMPOSE_PROJECT_NAME}/project-background-images:/app/public/project-background-images\n      - /docker_data/${COMPOSE_PROJECT_NAME}/attachments:/app/private/attachments\n    ports:\n      - 23000:1337\n    environment:\n      - BASE_URL=http://rpi:23000\n      - DATABASE_URL=postgresql://postgres@postgres/planka\n      - SECRET_KEY=notsecretkey\n\n      # - TRUST_PROXY=0\n      # - TOKEN_EXPIRES_IN=365 # In days\n\n      # related: https://github.com/knex/knex/issues/2354\n      # As knex does not pass query parameters from the connection string we\n      # have to use environment variables in order to pass the desired values, e.g.\n      # - PGSSLMODE=<value>\n\n      # Configure knex to accept SSL certificates\n      # - KNEX_REJECT_UNAUTHORIZED_SSL_CERTIFICATE=false\n\n      - DEFAULT_ADMIN_EMAIL=demo@demo.demo # Do not remove if you want to prevent this user from being edited/deleted\n      - DEFAULT_ADMIN_PASSWORD=demo\n      - DEFAULT_ADMIN_NAME=Demo Demo\n      - DEFAULT_ADMIN_USERNAME=demo\n\n      # - OIDC_ISSUER=\n      # - OIDC_CLIENT_ID=\n      # - OIDC_CLIENT_SECRET=\n      # - OIDC_SCOPES=openid email profile\n      # - OIDC_ADMIN_ROLES=admin\n      # - OIDC_ROLES_ATTRIBUTE=groups\n      # - OIDC_IGNORE_ROLES=true\n    depends_on:\n      - postgres\n\n  postgres:\n    image: postgres:14-alpine\n    restart: unless-stopped\n    volumes:\n      - /docker_data/${COMPOSE_PROJECT_NAME}/postgresql-data:/var/lib/postgresql/data\n    environment:\n      - POSTGRES_DB=planka\n      - POSTGRES_HOST_AUTH_METHOD=trust\n\n"
+            "type": 3,
+            "repository": {
+                "url": "https://github.com/damiancypcar/portainer-templates",
+                "stackfile": "compose_files/planka.yml"
+            }
         },
         {
             "title": "tubesync",
@@ -94,8 +115,11 @@
                 "Custom"
             ],
             "platform": "linux",
-            "type": 2,
-            "stackfile": "version: '3'\n\nservices:\n  tubesync:\n    image: ghcr.io/meeb/tubesync:latest\n    container_name: tubesync\n    restart: unless-stopped\n    environment:\n      - TZ=Europe/Warsaw\n      - PUID=1000\n      - PGID=1000\n    ports:\n      - 4848:4848\n    volumes:\n      - /etc/localtime:/etc/localtime:ro\n      - /docker_data/${COMPOSE_PROJECT_NAME}/config:/config\n      - /media/KING128W/media/youtube:/downloads # download dir\n"
+            "type": 3,
+            "repository": {
+                "url": "https://github.com/damiancypcar/portainer-templates",
+                "stackfile": "compose_files/tubesync.yml"
+            }
         },
         {
             "title": "lenpaste",
@@ -106,8 +130,11 @@
                 "Custom"
             ],
             "platform": "linux",
-            "type": 2,
-            "stackfile": "version: '3.4'\n\nservices:\n  lenpaste:\n    image: ghcr.io/lcomrade/lenpaste:1.3.1\n    ports:\n      - '21080:80'\n    volumes:\n      - '/docker_data/${COMPOSE_PROJECT_NAME}/data:/data'\n      - '/etc/timezone:/etc/timezone:ro'\n      - '/etc/localtime:/etc/localtime:ro'\n"
+            "type": 3,
+            "repository": {
+                "url": "https://github.com/damiancypcar/portainer-templates",
+                "stackfile": "compose_files/lenpaste.yml"
+            }
         }
     ]
 }
