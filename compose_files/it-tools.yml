@@ -1,0 +1,11 @@
+version: '3'
+# description: 'IT Tools'
+
+services:
+    it-tools:
+        image: corentinth/it-tools
+        container_name: it-tools
+        stdin_open: true
+        tty: true
+        ports:
+            - 7080:80
