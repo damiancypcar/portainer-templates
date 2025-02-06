@@ -45,8 +45,11 @@ def docker_compose_to_template(docker_compose_files, template_file):
                 "logo": logo,
                 "categories": ["Custom"],
                 "platform": "linux",
-                "type": 2,
-                "stackfile": compose_content  # Add the entire content of the Docker Compose file here
+                "type": 3,
+                "repository": {
+                    "url": "https://github.com/damiancypcar/portainer-templates",
+                    "stackfile": f"compose_files/{filename}"
+                }
             }
 
             # Add the processed template service to the main template
