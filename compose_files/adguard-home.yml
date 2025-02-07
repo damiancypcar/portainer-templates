@@ -1,0 +1,40 @@
+version: '3'
+# description: 'DNS with ads blocking'
+# logo: 'https://app.yunohost.org/default/v3/logos/c7216620e6bb965fae113aa37b0fb01878575962f20c0838b8ab4ecfdf13c804.png'
+
+####
+# Najpiearw należy utworzyć sieć "macvlan" przypisującą osobny adres IP dla AdGuardHome, w tym celu zalogować się z wykorzystaniem SSH i wykonać polecenie:
+# sudo docker network create -d macvlan -o parent=end0 --subnet=192.168.100.0/23 --gateway=192.168.100.254 --ip-range=192.168.101.195/32 macvlan_network
+####
+
+version: "3"
+services:
+  adguardhome:
+    image: adguard/adguardhome:latest
+    container_name: adguardhome
+    restart: unless-stopped
+    networks:
+      ipvlan_network:
+        ipv4_address: 192.168.11.88
+      npm_network:
+    ports:
+      - 53:53/tcp  #DNS
+      - 53:53/udp  #DNS
+      # - 784:784/udp
+      - 853:853/tcp  #DNS over TLS
+      - 3000:3000/tcp  #admin panel
+      # - 67:67/udp  # adguard as a DHCP server
+      # - 68:68/tcp  # adguard as a DHCP server
+      # - 68:68/udp  # adguard as a DHCP server
+      # - 80:80/tcp
+      # - 443:443/tcp
+    volumes:
+      - /docker_data/${COMPOSE_PROJECT_NAME}/work:/opt/adguardhome/work
+      - /docker_data/${COMPOSE_PROJECT_NAME}/conf:/opt/adguardhome/conf
+
+networks:
+  ipvlan_network:       
+    external: true
+  npm_network:
+    name: npm_network
+    external: true
